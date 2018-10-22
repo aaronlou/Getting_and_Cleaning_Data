@@ -1,4 +1,8 @@
 library(dplyr)
+# download data from url and unzip it
+download_data <- download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","~/Downloads/Human_Activity_Recognition_Using_Smartphones.zip")
+unzip("~/Downloads/Human_Activity_Recognition_Using_Smartphones.zip",exdir = "~/Downloads/")
+
 # read raw data from local files
 har_x_train <- read.table("~/Downloads/UCI HAR Dataset/train/X_train.txt")
 har_y_train <- read.table("~/Downloads/UCI HAR Dataset/train/y_train.txt")
@@ -74,4 +78,5 @@ colnames(mean_std_har) <- c(as.vector(feature[target_col$V1,2]),"activity","subj
 
 stat <- aggregate(mean_std_har[,1:66], by = list(activity = mean_std_har$activity,subject = mean_std_har$subject), FUN = mean )
 write.table(stat,file="~/Downloads/cleaning_data_week4.txt",row.name=FALSE)
+
 
